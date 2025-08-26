@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+#root{
+    padding: 0;
+    margin: 0;
+}
+
+#content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    background-color: rgba(255, 255, 255, 0.4);
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+}
+
+.searchDiv{
+    width: 96vw;
+    height: 21vh;
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding: 2vh 2vw 2vh 2vw;
+}
+
+.searchBar{
+    width: 50vw;
+    height: 10vh;
+
+    font-size: 2.5vw;
+    padding: 1vh 1vw 1vh 1vw;
+    border-style: solid;
+    background-color: black;
+}
+
+#display{
+    width: 90vw;
+    height: 65vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.location{
+    font-size: 3vw;
+    width: 30vw;
+    height: 9vh;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #0b6fe9cb;
+    border-radius: 0.2vw;
+
+    transition: font-size 0.5s ease-in-out;  
+}
+
+.location:hover{
+    transform: scale(1.02);
+}
+
+.grid{
+    width: 60vw;
+    height: 40vh;
+    display: grid;
+    place-content: center; /* centers the entire grid inside the container */
+    grid-template-columns: repeat(4,20vw);
+    grid-template-rows: repeat(2,16vh);
+    padding: 2vh 5vw 2vh 5vw;
+
+    font-size: 2.5vw;
+}

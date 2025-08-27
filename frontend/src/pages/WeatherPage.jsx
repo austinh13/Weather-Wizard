@@ -1,33 +1,76 @@
 import { useEffect, useState } from "react";
 import sunnyDay from "/SunnyDay.jpg"
+import spring from "/Spring.jpg"
+import rainy_day from "/rainy-day.jpg"
+
+
 export default function WeatherPage(){
 
     const [location, setLocation] = useState("Texas");
     const [weather, setWeather] = useState(null);
+    const [recommendation, setRecommendation] = useState(null);
     const [input, setInput] = useState("");
 
-    useEffect(() => {
-    async function fetchWeather() {
-      try {
-        const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(
-    location
-    )}?unitGroup=us&key=${import.meta.env.VITE_API_KEY}&contentType=json`;
+    async function fetchClothing(weather) {
+    try {
+        console.log("Sending weather to Flask:", weather);
 
+        const response = await fetch("http://localhost:5000/api/get_clothing", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(weather),
+        });
 
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+        if (!response.ok) {
+        console.error("Clothing API returned HTTP error:", response.status);
+        return;
+        }
 
         const data = await response.json();
-        setWeather({
-          address: data.resolvedAddress,
-          ...data.currentConditions,
-        });
-      } catch (err) {   
-        console.error("Error fetching weather:", err);
-      }
+        console.log("Clothing recommendation received:", data);
+
+        setRecommendation(data.rewritten || data.recommendation);
+    } catch (error) {
+        console.error("Error fetching clothing recommendation:", error);
     }
-    fetchWeather();
-    }, [location]);
+    }
+
+
+
+    useEffect(() => {
+  console.log("useEffect triggered for location:", location);
+
+  async function fetchWeather() {
+    try {
+      const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(
+        location
+      )}?unitGroup=us&key=${import.meta.env.VITE_API_KEY}&contentType=json`;
+
+      console.log("Fetching URL:", url);
+
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+
+      const data = await response.json();
+      console.log("Weather data received:", data);
+
+      const weatherData = {
+        address: data.resolvedAddress,
+        ...data.currentConditions,
+      };
+
+      setWeather(weatherData);
+
+      // Fetch clothing recommendations
+      fetchClothing(weatherData);
+    } catch (err) {
+      console.error("Error fetching weather:", err);
+    }
+  }
+
+  fetchWeather();
+}, [location]);
+
 
     const getBackground = () => {
         if (!weather) return "";
@@ -82,6 +125,15 @@ export default function WeatherPage(){
       </div>
     </div>
   )}
+
+  {recommendation && (
+    <div className = "recommendation">
+        <p>AI Recommendation: {recommendation}</p>
+    </div>
+
+  )}
 </div>
+
+
     )
 }

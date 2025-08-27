@@ -1,9 +1,12 @@
 @import "tailwindcss";
 
-html, body, #root {
+html, body, #root{
   height: 100%;
   width: 100%;
+  margin: 0;   /* make sure this is zero */
+  padding: 0;  /* remove default padding */
 }
+
 
 #root{
     padding: 0;
@@ -17,6 +20,8 @@ html, body, #root {
     text-align: center;
     justify-content: center;
 
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
     background-color: rgba(255, 255, 255, 0.4);
     background-blend-mode: overlay;
     background-size: cover;
@@ -24,6 +29,8 @@ html, body, #root {
     background-repeat: no-repeat;
     width: 100vw;
     height: 100vh;
+
+    gap:2vh;
 }
 
 .searchDiv{
@@ -43,23 +50,28 @@ html, body, #root {
 
     font-size: 2.5vw;
     padding: 1vh 1vw 1vh 1vw;
+    border-radius: 0.2vw;
     border-style: solid;
     background-color: black;
 }
 
 #display{
     width: 90vw;
-    height: 65vh;
+    height: 55vh;
     display: flex;
     flex-direction: column;
     align-items: center;
 
+    gap:2vh;
 }
 
 .location{
     font-size: 3vw;
-    width: 30vw;
+    min-width: 40vw;
+    width: auto;
     height: 9vh;
+
+    padding: 0vh 1vw 0vh 1vw;
 
     display: flex;
     flex-direction: row;
@@ -69,21 +81,85 @@ html, body, #root {
     background-color: #0b6fe9cb;
     border-radius: 0.2vw;
 
-    transition: font-size 0.5s ease-in-out;  
+    transition: transform 0.5s ease-in-out;  
 }
 
 .location:hover{
-    transform: scale(1.02);
+    transform: scale(1.04);
 }
 
 .grid{
-    width: 60vw;
+    width: 85vw;
     height: 40vh;
     display: grid;
     place-content: center; /* centers the entire grid inside the container */
     grid-template-columns: repeat(4,20vw);
     grid-template-rows: repeat(2,16vh);
     padding: 2vh 5vw 2vh 5vw;
+    background-color: #0b6fe9cb;
 
-    font-size: 2.5vw;
+    font-size: 2.4vw;
+}
+
+.recommendation{
+    width: 70vw;
+    height: 12vh;
+    padding: 1vh 1vw 1vh 1vw;
+
+    background-color: #0b6fe9cb;
+
+
+    transition: transform 0.5s ease-out;
+}   
+
+.recommendation:hover{
+    transform: scale(1.02);
+}
+
+.recommendation p{
+    font-size: 1vw;
+}
+
+@media (max-width: 600px){
+
+    #content{
+        gap:4vh;
+    }
+    .searchDiv{
+        height: 10vh;
+    }
+
+    .searchBar{
+        width: 80vw;
+        font-size: 3vh;
+    }
+
+    .display{
+        height: 65vh;
+    }
+    .location{
+        font-size: 3vh;
+        min-width: 50vw;
+    }
+
+    .grid{
+        height: 60vh;
+        grid-template-columns: repeat(2,40vw);
+        grid-template-rows: repeat(4,11vh);
+        font-size: 2.5vh;
+    }
+
+    .grid p{
+        height: 10vh;
+    }
+
+    .recommendation{
+        width: 90vw;
+        min-height: 17vh;
+        height: auto;
+        padding: 1vh 1vw 1vh 1vh;
+    }
+    .recommendation p{
+        font-size: 1.5vh;
+    }
 }

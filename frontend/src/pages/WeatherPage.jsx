@@ -15,7 +15,7 @@ export default function WeatherPage(){
     try {
         console.log("Sending weather to Flask:", weather);
 
-        const response = await fetch("http://localhost:5000/api/get_clothing", {
+        const response = await fetch("https://weather-wizard-87rb.onrender.com/api/get_clothing", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(weather),

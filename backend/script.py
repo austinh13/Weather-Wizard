@@ -7,7 +7,8 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
-
+import os
+key = os.environ.get("VITE_API_KEY")
 app = Flask(__name__)
 CORS(app, origins=["http://localhost:5173"])  # <- match your React origin
 

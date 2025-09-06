@@ -3,7 +3,8 @@ import sunnyDay from "/SunnyDay.jpg"
 import spring from "/Spring.jpg"
 import rainy_day from "/rainy-day.jpg"
 
-
+//  /api/get_clothing
+// http://127.0.0.1:5000
 export default function WeatherPage(){
 
     const [location, setLocation] = useState("Texas");
@@ -15,7 +16,7 @@ export default function WeatherPage(){
     try {
         console.log("Sending weather to Flask:", weather);
 
-        const response = await fetch("https://weather-wizard-87rb.onrender.com/api/get_clothing", {
+        const response = await fetch("http://127.0.0.1:5000/api/get_clothing", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(weather),
